@@ -2,7 +2,8 @@ import React from "react";
 import TodoList from "./components/TodoList";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
-import uuid from 'react-uuid';
+import uuid from "react-uuid";
+
 
 class App extends React.Component {
   state = {
@@ -25,8 +26,6 @@ class App extends React.Component {
     ]
   };
 
-
-
   //Toggle Complete
   markComplete = id => {
     this.setState({
@@ -40,14 +39,14 @@ class App extends React.Component {
   };
 
   //Delete Todo
-  delTodo = (id) => {
+  delTodo = id => {
     this.setState({
       todos: [...this.state.todos.filter(todo => todo.id !== id)]
     });
   };
 
   //clearCompleted
-  clearCompleted = (e) => {
+  clearCompleted = e => {
     e.preventDefault();
 
     this.setState({
@@ -58,15 +57,16 @@ class App extends React.Component {
   };
 
   // Add Todo
-  addTodo = (title) => {
-    const newTodo ={
+  addTodo = title => {
+    const newTodo = {
       id: uuid(),
       title,
       completed: false
-    }
-    this.setState({ todos: [...this.state.todos, newTodo]});
-  }
+    };
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  };
 
+  
   render() {
     return (
       <div className="App">
@@ -77,11 +77,16 @@ class App extends React.Component {
             markComplete={this.markComplete}
             delTodo={this.delTodo}
           />
-          <TodoForm addTodo={this.addTodo} clearCompleted={this.clearCompleted}/>
+          <TodoForm
+            addTodo={this.addTodo}
+            clearCompleted={this.clearCompleted}
+          />
           <div className="clearbtn">
-          <button onClick={this.clearCompleted} className="btn" >Clear Completed Tasks</button>
+            <button onClick={this.clearCompleted} className="btn">
+              Clear Completed Tasks
+            </button>
           </div>
-     </div>
+        </div>
       </div>
     );
   }
