@@ -25,6 +25,8 @@ class App extends React.Component {
     ]
   };
 
+
+
   //Toggle Complete
   markComplete = id => {
     this.setState({
@@ -41,6 +43,17 @@ class App extends React.Component {
   delTodo = (id) => {
     this.setState({
       todos: [...this.state.todos.filter(todo => todo.id !== id)]
+    });
+  };
+
+  //clearCompleted
+  clearCompleted = (e) => {
+    e.preventDefault();
+
+    this.setState({
+      todos: this.state.todos.filter(todo => {
+        return !todo.completed;
+      })
     });
   };
 
@@ -64,8 +77,11 @@ class App extends React.Component {
             markComplete={this.markComplete}
             delTodo={this.delTodo}
           />
-          <TodoForm addTodo={this.addTodo}/>
-        </div>
+          <TodoForm addTodo={this.addTodo} clearCompleted={this.clearCompleted}/>
+          <div className="clearbtn">
+          <button onClick={this.clearCompleted} className="btn" >Clear Completed Tasks</button>
+          </div>
+     </div>
       </div>
     );
   }

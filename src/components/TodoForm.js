@@ -10,7 +10,7 @@ class TodoForm extends React.Component {
       this.props.addTodo(this.state.title);
       this.setState({ title: ''});
   }
-  
+
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
@@ -28,6 +28,7 @@ class TodoForm extends React.Component {
         value="Submit" 
         className="btn" 
         style={{ flex: '1' }}/>
+
       </form>
     );
   }

@@ -29,6 +29,13 @@ a {
     cursor: pointer;
     font-size: 1.1rem;
 }
+.clearbtn {
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding-top: 2%;
+
+}
 
 .btn:hover {
     background: white;
