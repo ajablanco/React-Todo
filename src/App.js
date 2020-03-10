@@ -1,13 +1,92 @@
-import React from 'react';
+import React from "react";
+import TodoList from "./components/TodoList";
+import Header from "./components/Header";
+import TodoForm from "./components/TodoForm";
+import uuid from "react-uuid";
+
 
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
+  state = {
+    todos: [
+      {
+        id: 1,
+        title: "Learn About Class Components",
+        completed: true
+      },
+      {
+        id: 2,
+        title: "Complete React Todo Project",
+        completed: false
+      },
+      {
+        id: 3,
+        title: "Standup Meeting at 4pm",
+        completed: false
+      }
+    ]
+  };
+
+  //Toggle Complete
+  markComplete = id => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      })
+    });
+  };
+
+  //Delete Todo
+  delTodo = id => {
+    this.setState({
+      todos: [...this.state.todos.filter(todo => todo.id !== id)]
+    });
+  };
+
+  //clearCompleted
+  clearCompleted = e => {
+    e.preventDefault();
+
+    this.setState({
+      todos: this.state.todos.filter(todo => {
+        return !todo.completed;
+      })
+    });
+  };
+
+  // Add Todo
+  addTodo = title => {
+    const newTodo = {
+      id: uuid(),
+      title,
+      completed: false
+    };
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  };
+
+  
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
+      <div className="App">
+        <div className="container">
+          <Header />
+          <TodoList
+            todos={this.state.todos}
+            markComplete={this.markComplete}
+            delTodo={this.delTodo}
+          />
+          <TodoForm
+            addTodo={this.addTodo}
+            clearCompleted={this.clearCompleted}
+          />
+          <div className="clearbtn">
+            <button onClick={this.clearCompleted} className="btn">
+              Clear Completed Tasks
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
